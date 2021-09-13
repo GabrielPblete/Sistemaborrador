@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Sistemaborrador.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,7 +28,7 @@ namespace Sistemaborrador.Pages
 
         public void OnGet()
         {
-    
+           
         }
 
 
@@ -38,10 +39,22 @@ namespace Sistemaborrador.Pages
                 return Page();
             }
             
-            var usuario = this.Usuario;
-            var pass = this.Password;
+            var Usuario = this.Usuario;
+            var Pass = this.Password;
 
-            return Page();
+            var repo = new LoginRepository();
+            if(repo.UsuarioExist(Usuario, Pass))    
+            {
+                return RedirectToPage("./Test");
+            }
+            else
+            {
+                return Page();
+            }
+
+            //Validar si estan el Bd
+
+            
         }
     }
 }
